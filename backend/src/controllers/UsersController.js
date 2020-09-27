@@ -1,17 +1,19 @@
 const knex = require('../database/connection');
 const encryptPassword = require('../utils/encryptPassword');
-const validateUser = require('../utils/validatePassword');
+const validatePassword = require('../utils/validatePassword');
 
 module.exports = {
     async index(request, response){
-        const results = await knex('users')
+        const results = await knex('users');
+        delete results.password;
+
         return response.json(results);
     },
 
     async create(request, response, next){
         const user = request.body
         try{
-            if(validateUser(user.password)){
+            if(validatePassword(user.password)){
                 encryptPassword(user.password, 8).then((hash) => {
                     delete user.password;
                     user.password_digest = hash
