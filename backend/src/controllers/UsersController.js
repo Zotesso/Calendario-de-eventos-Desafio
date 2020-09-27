@@ -1,6 +1,6 @@
 const knex = require('../database/connection');
 const encryptPassword = require('../utils/encryptPassword');
-const validateUser = require('../utils/validateUser');
+const validateUser = require('../utils/validatePassword');
 
 module.exports = {
     async index(request, response){
