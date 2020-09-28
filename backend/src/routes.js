@@ -11,4 +11,9 @@ routes.post('/users', userController.create);
 
 routes.post('/login', loginController.login);
 
+routes.get('/events/:visiblity', eventController.index);
+routes.post('/events', eventController.create);
+routes.put('/events', eventController.update);
+routes.delete('/events', eventController.delete);
+
 module.exports = routes;

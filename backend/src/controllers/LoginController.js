@@ -1,6 +1,8 @@
 const validatePassword = require('../utils/validatePassword');
 const bcrypt = require('bcrypt');
 const verifyUserExistence = require('../../src/utils/verifyUserExistence');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = {
     async login(request, response,next){
@@ -14,9 +16,10 @@ module.exports = {
                         .compare(userData.password ,savedUser.password)
                         .then((result) => {
                             if(result){
+                                const acessToken = jwt.sign({name: userData.username}, process.env.ACESS_TOKEN_SECRET);
+
                                 response.json({
-                                    result,
-                                    message: 'Logando ...'
+                                    acessToken: acessToken
                                 }); 
                             }else{
                                 next(new Error('invalid login'));

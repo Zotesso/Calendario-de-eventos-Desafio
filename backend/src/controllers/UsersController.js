@@ -12,6 +12,8 @@ module.exports = {
 
     async create(request, response, next){
         const user = request.body
+        let message = "Cadastro Realizado";
+
         try{
             if(validatePassword(user.password)){
                 encryptPassword(user.password, 8).then((hash) => {
@@ -23,12 +25,11 @@ module.exports = {
                     username: user.username,
                     password: user.password_digest
                 }))
-                .catch((err) => console.error(err))
-
-                return response.status(201).send();
+                .catch((err) => console.log(err))
             }else{
                 response.json({error:'invalid password'});
             }
+            return response.json(message);
         }catch(error){
             next(error);
         }
