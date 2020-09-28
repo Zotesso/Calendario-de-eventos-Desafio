@@ -42,9 +42,26 @@ module.exports = {
         }
     },
 
-    async create(request, response){
+    async create(request, response, next){
         const eventData = request.body;
+        try{
+            if(authenticateToken(request.headers['authorization'])){
+                const id = await knex('events').insert({
+                    title: eventData.title,
+                    description: eventData.description,
+                    visibility: eventData.visibility,
+                    eventStartTime: eventData.eventStartTime,
+                    eventEndTime: eventData.eventEndTime,
+                    user_id: eventData.userId
+                });
 
+                return response.sendStatus(200);
+            }else{
+                return response.sendStatus(401);
+            }
+        }catch(error){
+            next(error);
+        }
     },
 
     async update(request, response){
