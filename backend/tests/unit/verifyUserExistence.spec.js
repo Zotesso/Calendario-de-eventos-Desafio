@@ -1,8 +1,9 @@
 const verifyUserExistence = require('../../src/utils/verifyUserExistence');
 
 describe('Verify if exists username in database', () => {
-    it('should return the password if username exists', async () => {
-        const user = await verifyUserExistence('zotesso4');
-        expect(user.password).toEqual(expect.any(String));
+    it('should return the passwrod if username exists', async () => {
+        await verifyUserExistence('zotesso').then((user) => {
+        expect(user).toEqual(expect.any(String));
+      });
     });
 });

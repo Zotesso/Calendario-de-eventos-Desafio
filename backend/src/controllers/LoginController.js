@@ -13,10 +13,12 @@ module.exports = {
                 const savedUser = await verifyUserExistence(userData.username);
                 if(savedUser){
                     bcrypt
-                        .compare(userData.password ,savedUser.password)
+                        .compare(userData.password ,savedUser)
                         .then((result) => {
+
+                            const user = { name: userData.username}
                             if(result){
-                                const acessToken = jwt.sign({name: userData.username}, process.env.ACESS_TOKEN_SECRET);
+                                const acessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 
                                 response.json({
                                     acessToken: acessToken
