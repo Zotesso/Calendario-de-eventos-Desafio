@@ -1,0 +1,22 @@
+.link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 1.6rem;
+    margin-left: 15px;
+    margin-top: 5px;
+    
+}
+
+.navbar-brand{
+    display: none;
+    font-size: 1.8rem;
+}
+
+@media (max-width: 600px) 
+{
+  .navbar-brand{
+      display: block;
+  }
+}
