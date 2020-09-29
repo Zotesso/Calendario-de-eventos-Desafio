@@ -9,6 +9,11 @@
         
 }
 
+.login-section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 .navbar-brand{
     display: none;
     font-size: 1.8rem;

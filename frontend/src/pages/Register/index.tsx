@@ -23,7 +23,7 @@ const Home = () => {
         try{
         await api.post('users',data);
             alert(`Sua conta foi Cadastrada com sucesso!`);
-            history.push('/');
+            history.push('/login');
         }catch (err){
             alert("Erro no Cadastro, tente novamente");
         }

@@ -14,7 +14,8 @@ module.exports = {
         if(visibility === 'public'){
             const events = await knex('events')
             .where('visibility',visibility)
-            .select(['events.*']);
+            .join('users', 'users.id', '=', 'events.user_id')
+            .select(['events.*','users.name']);
 
             return response.json(events);
 

@@ -1,0 +1,9 @@
+.text-muted cite{
+    font-size: 1.4rem;
+    color: #444;
+}
+
+.card-header{
+    font-size: 1.65rem;
+    text-transform: uppercase;
+}
