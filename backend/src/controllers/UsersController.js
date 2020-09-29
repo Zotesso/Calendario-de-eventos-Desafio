@@ -12,6 +12,7 @@ module.exports = {
 
     async create(request, response, next){
         const user = request.body
+     
         let message = "Cadastro Realizado";
 
         try{

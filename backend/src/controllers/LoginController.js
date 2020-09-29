@@ -2,6 +2,7 @@ const validatePassword = require('../utils/validatePassword');
 const bcrypt = require('bcrypt');
 const verifyUserExistence = require('../../src/utils/verifyUserExistence');
 const jwt = require('jsonwebtoken');
+const getUserIdByName = require('../utils/getUserIdByName');
 require('dotenv').config();
 
 module.exports = {
@@ -11,6 +12,7 @@ module.exports = {
 
             if(validatePassword(userData.password)){
                 const savedUser = await verifyUserExistence(userData.username);
+                const userId = await getUserIdByName(userData.username);
                 if(savedUser){
                     bcrypt
                         .compare(userData.password ,savedUser)
@@ -18,10 +20,11 @@ module.exports = {
 
                             const user = { name: userData.username}
                             if(result){
-                                const acessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+                                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 
                                 response.json({
-                                    acessToken: acessToken
+                                    userId: userId,
+                                    accessToken: accessToken
                                 }); 
                             }else{
                                 next(new Error('invalid login'));
