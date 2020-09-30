@@ -32,7 +32,7 @@ const Header = () => {
                     </Link>
             </Nav.Item>   
         </Nav>
-          <Link to="/" className="link">
+          <Link to="/new" className="link">
                 <FiPlusCircle size={22} color="#333"/>
                  Adicionar Evento
             </Link>

@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import UserEvents from './pages/UserEvents';
 import AllEvents from './pages/AllEvents';
+import NewEvent from './pages/NewEvent';
 
 function Routes(){
     return(
@@ -15,6 +16,7 @@ function Routes(){
             <Route path="/login" component={Login}/>
             <Route path="/myevents" component={UserEvents}/>
             <Route path="/events" component={AllEvents}/>
+            <Route path="/new" component={NewEvent}/>
         </BrowserRouter>
     );
 }
