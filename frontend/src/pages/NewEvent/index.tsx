@@ -12,7 +12,13 @@ const NewEvent = () => {
             <Header />
         </header>
         <main>
-            <EventController />
+            <EventController 
+            title='Olá' 
+            description='teste' 
+            eventStartTime={new Date()} 
+            eventEndTime={new Date()}
+            visibility='private' 
+            />
         </main>
     </>
     );

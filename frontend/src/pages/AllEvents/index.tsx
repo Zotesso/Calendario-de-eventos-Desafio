@@ -47,7 +47,7 @@ const AllEvents = () => {
         </header>
         <main>
          {events.map((anEvent: Event)=> (
-                    <Card key={anEvent.id} border="dark" style={{ width: '18rem', height: '20rem' }}>
+                    <Card key={anEvent.id} border="dark" style={{ width: '26rem', height: '24rem' }}>
                     <Card.Header>{anEvent.title}</Card.Header>
                     <Card.Body>
                       <Card.Title></Card.Title>

@@ -59,7 +59,7 @@ const UserEvents = () => {
         </header>
         <main>
          {personalEvents.map((personalEvent: Event)=> (
-                    <Card key={personalEvent.id} border="dark" style={{ width: '18rem', height: '20rem' }}>
+                    <Card key={personalEvent.id} border="dark" style={{ width: '24rem', height: '22rem' }}>
                     <Card.Header>
                         <button onClick={() => handleDeleteIncident(personalEvent.id)} type="button">
                             <FiTrash2 size={20} color="a8a8b3" />

@@ -1,9 +1,8 @@
-import React, {ButtonHTMLAttributes, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 
 import { useHistory } from 'react-router-dom';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
-import Header from '../../components/header';
 import api from '../../services/api';
 
 import Form  from 'react-bootstrap/Form';
@@ -22,7 +21,16 @@ interface IFormEvent {
     userId: string | null;
 }
 
-const EventController = () => { 
+interface EventControllerProps{
+    title: string;
+    description: string;
+    eventStartTime: Date;
+    eventEndTime: Date;
+    visibility: string;
+    eventId?: string;
+}
+
+const EventController: React.FC<EventControllerProps> = ({title, description, eventStartTime, eventEndTime, visibility, eventId}) => { 
     const { register, errors, handleSubmit } = useForm<IFormEvent>();
     const onSubmit = (data: IFormEvent) => sendEvent(data);
 
@@ -30,9 +38,9 @@ const EventController = () => {
     const token = localStorage.getItem('token');
     const history = useHistory();
 
-    const [eventVisibility, setEventVisibility] = useState('private');
-    const [startEventDate, setStartEventDate] = useState<Date | any | null>(new Date());
-    const [endEventDate, setEndEventDate] = useState<Date | any | null>(new Date());
+    const [eventVisibility, setEventVisibility] = useState(visibility);
+    const [startEventDate, setStartEventDate] = useState<Date | any | null>(eventStartTime);
+    const [endEventDate, setEndEventDate] = useState<Date | any | null>(eventEndTime);
   
     useEffect(() => {
         if(userId === null){
@@ -41,9 +49,19 @@ const EventController = () => {
         }
     }, []);
 
-    async function sendEvent(data: IFormEvent){
+    function sendEvent(data: IFormEvent){
         if(userId !== null){
-        data = {...data, eventStartTime: startEventDate, eventEndTime: endEventDate, visibility: eventVisibility, userId: userId};
+            data = {...data, eventStartTime: startEventDate, eventEndTime: endEventDate, visibility: eventVisibility, userId: userId};
+        
+            if(eventId){
+                updateEvent(data);
+            }else{
+                postEvent(data);
+            }
+        }
+    }
+
+    async function postEvent(data: IFormEvent){
         try{
             await api.post('events', data, {
                 headers:{
@@ -57,7 +75,22 @@ const EventController = () => {
             alert('Falha ao criar Evento, tente novamente');
         }
      }
-    }
+
+     async function updateEvent(data: IFormEvent){
+        try{
+            await api.put(`events/${eventId}`, data, {
+                headers:{
+                authorization: `Bearer ${token}`,
+                userId: userId,
+            }});
+
+            alert('Evento Atualizado com sucesso!');
+            history.push('/myevents');
+        
+        }catch(err){
+            alert('Falha ao Editar Evento, tente novamente');
+        }
+     }
 
     function handleVisbilityChange(){
         eventVisibility === 'private' ? setEventVisibility('public') : setEventVisibility('private')
@@ -67,13 +100,18 @@ const EventController = () => {
         <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group controlId="formTitle">
                 <Form.Label>Nome do Evento:</Form.Label>
-                <Form.Control type="text" name="title" ref={register({ required: true})}/>
+                <Form.Control type="text" name="title" value={title}ref={register({ required: true})}/>
                 {errors.title && (<p className="error">Insira o titulo de seu Evento</p>)}
             </Form.Group>
 
             <Form.Group controlId="formDescription">
                 <Form.Label>Descrição:</Form.Label>
-                <Form.Control as="textarea" name="description" ref={register({ required: true, maxLength: 140 })} />
+                <Form.Control 
+                as="textarea" 
+                name="description" 
+                value={description}
+                ref={register({ required: true, maxLength: 140 })} 
+                />
                 {errors.description?.type === "required" && (
                     <p className="error">Preencha o campo!</p>
                 )}
@@ -110,7 +148,8 @@ const EventController = () => {
                 </Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">
-                Criar evento
+                {eventId && <span>Atualizar evento</span>}
+                {!eventId && <span>Criar evento</span>}
             </Button>
         </Form>
     );
