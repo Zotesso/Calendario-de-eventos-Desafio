@@ -47,7 +47,7 @@ const EventController: React.FC<EventControllerProps> = ({title, description, ev
             history.push('./login');
             alert("Faça seu Login primeiro!");
         }
-    }, []);
+    });
 
     function sendEvent(data: IFormEvent){
         if(userId !== null){

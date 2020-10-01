@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Header from '../../components/header';
 import EventController from '../../components/eventController';
 
-import {RouteComponentProps, useHistory}  from 'react-router-dom';
+import {RouteComponentProps}  from 'react-router-dom';
 import './styles.css';
 
 const EditEvent = (props: RouteComponentProps) => { 
     const state = props.location.state;
-    const history = useHistory();
 
     return (
         <>
@@ -16,7 +15,7 @@ const EditEvent = (props: RouteComponentProps) => {
             <Header />
         </header>
         <main>
-        {props.location.state != undefined &&
+        {props.location.state !== undefined &&
             <EventController 
             title={(state as any).title}
             description={(state as any).description}

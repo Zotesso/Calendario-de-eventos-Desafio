@@ -1,7 +1,10 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+
 import  Card  from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import moment from 'moment';
 import 'moment/locale/pt-br';
@@ -28,13 +31,15 @@ const UserEvents = () => {
 
 
     useEffect(() => {
-        api.get(`events/private/${userId}`,{
-            headers:{
-                authorization: `Bearer ${token}`,
-            }
-        }).then(response => {
-            setPersonalEvents(response.data);
-        })
+        if(userId){
+            api.get(`events/private/${userId}`,{
+                headers:{
+                    authorization: `Bearer ${token}`,
+                }
+            }).then(response => {
+                setPersonalEvents(response.data);
+            })
+        }
     }, [userId, token]);
 
     async function handleDeleteIncident(id: Number){
@@ -57,14 +62,17 @@ const UserEvents = () => {
         <>
         <header>
         <Header />
+        <p className="session-title">Seus eventos</p>
+        {!userId && 
+        <p className="session-warning">Faça login para ter acesso aos seus eventos!</p>
+        }
         </header>
         <main>
+        <Row>
          {personalEvents.map((personalEvent: Event)=> (
-                    <Card key={personalEvent.id} border="dark" style={{ width: '24rem', height: '22rem' }}>
-                    <Card.Header>
-                        <button onClick={() => handleDeleteIncident(personalEvent.id)} type="button">
-                            <FiTrash2 size={20} color="a8a8b3" />
-                        </button>
+             <Col sm={4} key={personalEvent.id}>
+                    <Card key={personalEvent.id} border="dark" style={{ width: '36rem', height: '25rem' }}>
+                    <Card.Header className="userCard">
                         <Link to={{
                             pathname: '/edit', 
                             state: {
@@ -75,8 +83,12 @@ const UserEvents = () => {
                                 eventEndTime: new Date(personalEvent.eventEndTime),
                             }
                             }} >
-                            <FiEdit size={20} color="333" />
+                            <FiEdit title="Editar Evento" size={20} color="333" />
                         </Link>
+                        <button title="Deletar evento"
+                        onClick={() => handleDeleteIncident(personalEvent.id)} type="button">
+                                <FiTrash2 size={20} color="333" />
+                            </button>
                     </Card.Header> 
                     <Card.Body>
                       <Card.Title>{personalEvent.title}</Card.Title>
@@ -90,7 +102,9 @@ const UserEvents = () => {
                       </Card.Text>
                     </Card.Body>
                   </Card>
-                ))}
+                </Col>
+            ))}
+        </Row>
         </main>
     </>
     );

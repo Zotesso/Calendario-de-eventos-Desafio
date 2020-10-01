@@ -1,0 +1,11 @@
+.userCard button{
+    position: absolute;
+    right: 5%;
+}
+
+header .session-warning{
+    margin-top: 1.2rem;
+    font-size: 1.7rem;
+
+    text-align: center;
+}

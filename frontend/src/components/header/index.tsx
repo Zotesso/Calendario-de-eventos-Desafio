@@ -50,7 +50,7 @@ const Header = () => {
             </section>
             }
             {localStorage.getItem("userId") !== null &&
-                <button onClick={handleLogout} type="button">
+                <button onClick={handleLogout} type="button" className="link">
                     <FiLogOut size={22} color="#333"/>
                     <FiUser size={22} color="#333"/>
                      Sair

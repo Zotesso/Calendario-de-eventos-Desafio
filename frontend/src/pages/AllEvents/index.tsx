@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 import  Card  from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import Header from '../../components/header';
 import api from '../../services/api';
@@ -24,10 +26,7 @@ const AllEvents = () => {
 
     moment.locale('pt-BR');
 
-    const userId = localStorage.getItem('userId');
-
    useEffect(() => {
-      console.log('refresh');
       try{
       api.get('events/public').then(response => {
         setEvents(response.data);
@@ -44,10 +43,15 @@ const AllEvents = () => {
         <>
         <header>
         <Header />
+        <p className="session-title">Eventos públicos</p>
         </header>
+        
         <main>
+        
+          <Row>
          {events.map((anEvent: Event)=> (
-                    <Card key={anEvent.id} border="dark" style={{ width: '26rem', height: '24rem' }}>
+              <Col sm={4} key={anEvent.id}>
+                    <Card key={anEvent.id} border="dark" style={{ width: '36rem', height: '25rem' }}>
                     <Card.Header>{anEvent.title}</Card.Header>
                     <Card.Body>
                       <Card.Title></Card.Title>
@@ -67,7 +71,9 @@ const AllEvents = () => {
                     </Card.Text>
                     </Card.Body>
                   </Card>
+              </Col>
                 ))}
+            </Row>
         </main>
     </>
     );
