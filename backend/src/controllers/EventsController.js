@@ -69,7 +69,27 @@ module.exports = {
         console.log('oi');
     },
 
-    async delete(request, response){
-        console.log('oi');
+    async delete(request, response, next){
+        const { id } = request.params;
+        const user_id = request.headers.user;
+
+        try{
+            if(authenticateToken(request.headers['authorization'])){
+        const event = await knex('events')
+            .where('id', id)
+            .select('user_id')
+            .first();
+
+            if(event.user_id != user_id){
+                return response.status(401).json({error: 'Operation not permitted'});
+            }
+
+            await knex('events').where('id',id).delete();
+
+            return response.status(204).send();
+            }
+        }catch(error){
+            next(error);
+        }
     }
 }

@@ -9,6 +9,7 @@ import 'moment/locale/pt-br';
 import Header from '../../components/header';
 import api from '../../services/api';
 import './styles.css';
+import { FiTrash2 } from 'react-icons/fi';
 
 interface Event {
     id: number;
@@ -18,7 +19,7 @@ interface Event {
     eventEndTime: Date;
 }
 
-const Home = () => { 
+const UserEvents = () => { 
     const [personalEvents, setPersonalEvents] = useState([]);
 
     const userId = localStorage.getItem('userId');
@@ -35,6 +36,22 @@ const Home = () => {
         })
     }, [userId, token]);
 
+    async function handleDeleteIncident(id: Number){
+        try{
+            await api.delete(`events/${id}`, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                    user: userId,
+                }
+            });
+
+            setPersonalEvents(personalEvents.filter((personalEvent: Event) => personalEvent.id !== id));
+
+        }catch(err){
+            alert('Erro ao deletar caso');
+        }
+    }
+
     return (
         <>
         <header>
@@ -43,7 +60,11 @@ const Home = () => {
         <main>
          {personalEvents.map((personalEvent: Event)=> (
                     <Card key={personalEvent.id} border="dark" style={{ width: '18rem', height: '20rem' }}>
-                    <Card.Header>{personalEvent.title}</Card.Header>
+                    <Card.Header>
+                        <button onClick={() => handleDeleteIncident(personalEvent.id)} type="button">
+                            <FiTrash2 size={20} color="a8a8b3" />
+                        </button>
+                    </Card.Header>
                     <Card.Body>
                       <Card.Title>{personalEvent.title}</Card.Title>
                       <Card.Text>
@@ -62,4 +83,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default UserEvents;

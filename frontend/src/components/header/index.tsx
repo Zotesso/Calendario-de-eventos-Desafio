@@ -22,7 +22,7 @@ const Header = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
         <Nav fill variant="tabs" className="mr-auto"  defaultActiveKey="/">
             <Nav.Item>
-                    <Link to="/events" className="link">
+                    <Link to="/" className="link">
                         Todos Eventos
                     </Link>
             </Nav.Item>

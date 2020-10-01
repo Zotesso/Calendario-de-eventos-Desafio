@@ -14,7 +14,7 @@ interface IFormRegister {
     password: string;
 }
 
-const Home = () => { 
+const Register = () => { 
     const history = useHistory();
     const { register, errors, handleSubmit } = useForm<IFormRegister>();
     const onSubmit = (data: IFormRegister) => sendRegister(data);
@@ -81,4 +81,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Register;

@@ -5,7 +5,7 @@ import EventController from '../../components/eventController';
 
 import './styles.css';
 
-const Home = () => { 
+const NewEvent = () => { 
     return (
         <>
         <header>
@@ -18,4 +18,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default NewEvent;

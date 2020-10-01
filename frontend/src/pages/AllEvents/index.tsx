@@ -1,6 +1,5 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, {useState, useEffect} from 'react';
+
 import  Card  from 'react-bootstrap/Card';
 
 import Header from '../../components/header';
@@ -20,14 +19,25 @@ interface Event {
     eventEndTime: Date;
 }
 
-const Home = () => { 
+const AllEvents = () => { 
     const [events, setEvents] = useState([]);
+
     moment.locale('pt-BR');
-    
-    useEffect(() => {
-        api.get(`events/public`).then(response => {
-            setEvents(response.data);
-        })
+
+    const userId = localStorage.getItem('userId');
+
+   useEffect(() => {
+      console.log('refresh');
+      try{
+      api.get('events/public').then(response => {
+        setEvents(response.data);
+        }).catch((error: String) => {
+
+      });
+
+ 
+    }catch(error){
+      }
     }, []);
 
     return (
@@ -63,4 +73,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default AllEvents;

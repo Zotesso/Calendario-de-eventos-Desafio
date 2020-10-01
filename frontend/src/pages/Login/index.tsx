@@ -13,7 +13,7 @@ interface IFormLogin {
     password: string;
 }
 
-const Home = () => { 
+const Login = () => { 
     const history = useHistory();
     const { register, errors, handleSubmit } = useForm<IFormLogin>();
     const onSubmit = (data: IFormLogin) => sendLogin(data);
@@ -69,4 +69,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Login;
