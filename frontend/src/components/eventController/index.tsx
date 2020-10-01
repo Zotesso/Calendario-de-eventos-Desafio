@@ -81,7 +81,7 @@ const EventController: React.FC<EventControllerProps> = ({title, description, ev
             await api.put(`events/${eventId}`, data, {
                 headers:{
                 authorization: `Bearer ${token}`,
-                userId: userId,
+                user: userId,
             }});
 
             alert('Evento Atualizado com sucesso!');
@@ -100,7 +100,7 @@ const EventController: React.FC<EventControllerProps> = ({title, description, ev
         <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group controlId="formTitle">
                 <Form.Label>Nome do Evento:</Form.Label>
-                <Form.Control type="text" name="title" value={title}ref={register({ required: true})}/>
+                <Form.Control type="text" name="title" defaultValue={title} ref={register({ required: true})}/>
                 {errors.title && (<p className="error">Insira o titulo de seu Evento</p>)}
             </Form.Group>
 
@@ -109,7 +109,7 @@ const EventController: React.FC<EventControllerProps> = ({title, description, ev
                 <Form.Control 
                 as="textarea" 
                 name="description" 
-                value={description}
+                defaultValue={description}
                 ref={register({ required: true, maxLength: 140 })} 
                 />
                 {errors.description?.type === "required" && (
@@ -141,12 +141,14 @@ const EventController: React.FC<EventControllerProps> = ({title, description, ev
                     dateFormat="d, MMMM yyyy h:mm aa"
                 />
             </Form.Group>
+            {!eventId &&
             <Form.Group controlId="formVisibility">
                 <Form.Check type="checkbox" label="Seu evento será público?" onChange={handleVisbilityChange} />
                 <Form.Text className="text-muted">
                     Por padrão seu evento será privado, se desejar que outras pessoas possam ver seu evento, marque a opção!
                 </Form.Text>
             </Form.Group>
+            }
             <Button variant="primary" type="submit">
                 {eventId && <span>Atualizar evento</span>}
                 {!eventId && <span>Criar evento</span>}

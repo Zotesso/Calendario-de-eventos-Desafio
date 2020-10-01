@@ -9,7 +9,8 @@ import 'moment/locale/pt-br';
 import Header from '../../components/header';
 import api from '../../services/api';
 import './styles.css';
-import { FiTrash2 } from 'react-icons/fi';
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 interface Event {
     id: number;
@@ -64,7 +65,19 @@ const UserEvents = () => {
                         <button onClick={() => handleDeleteIncident(personalEvent.id)} type="button">
                             <FiTrash2 size={20} color="a8a8b3" />
                         </button>
-                    </Card.Header>
+                        <Link to={{
+                            pathname: '/edit', 
+                            state: {
+                                id: personalEvent.id,
+                                title: personalEvent.title,
+                                description: personalEvent.description,
+                                eventStartTime: new Date(personalEvent.eventStartTime),
+                                eventEndTime: new Date(personalEvent.eventEndTime),
+                            }
+                            }} >
+                            <FiEdit size={20} color="333" />
+                        </Link>
+                    </Card.Header> 
                     <Card.Body>
                       <Card.Title>{personalEvent.title}</Card.Title>
                       <Card.Text>

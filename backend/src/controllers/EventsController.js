@@ -65,8 +65,37 @@ module.exports = {
         }
     },
 
-    async update(request, response){
-        console.log('oi');
+    async update(request, response,next){
+        const { id } = request.params;
+        const user_id = request.headers.user;
+        const eventData = request.body;
+
+        try{
+            if(authenticateToken(request.headers['authorization'])){
+            const event = await knex('events')
+                .where('id', id)
+                .select('user_id')
+                .first();
+
+                if(event.user_id != user_id){
+                    console.log(event.user_id, '/', user_id);
+                    return response.status(403).json({error: 'Operation not permitted'});
+                }
+
+                await knex('events')
+                .where('id', id)
+                .update({
+                  title: eventData.title,
+                  description: eventData.description,
+                  eventStartTime: eventData.eventStartTime,
+                  eventEndTime: eventData.eventEndTime,
+                })
+
+                return response.status(204).send();
+            }
+        }catch(error){
+            next(error);
+        }
     },
 
     async delete(request, response, next){
