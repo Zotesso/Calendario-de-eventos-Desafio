@@ -6,6 +6,8 @@
 .card-header{
     font-size: 1.65rem;
     display: block;
+    background-color:#1a0e0eab;
+    color: #FFF;
 }
 
 .card-text{
@@ -23,6 +25,17 @@
     height:90%;
     width: 100%;
 }
+
+.card-body{
+    background:#ec59970e;
+    color: #333;
+}
+
+.card{
+    -webkit-box-shadow: 5px 5px 7px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 7px -3px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 7px -3px rgba(0,0,0,0.75);
+}
 main{
     top:25vw;
     height:80vh;
@@ -34,6 +47,7 @@ header .session-title{
     font-size: 1.7rem;
     font-weight: bold;
     text-align: center;
+    color: #333;
 }
 
 @media (min-width: 700px) { 

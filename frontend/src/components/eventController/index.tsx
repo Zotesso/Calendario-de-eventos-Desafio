@@ -63,12 +63,13 @@ const EventController: React.FC<EventControllerProps> = ({title, description, ev
 
     async function postEvent(data: IFormEvent){
         try{
-            await api.post('events', data, {
+            const response = await api.post('events', data, {
                 headers:{
                 authorization: `Bearer ${token}`,
             }});
-
-            alert('Evento Criado com sucesso!');
+            
+            alert(response.data.message);
+            
             history.push('/myevents');
         
         }catch(err){

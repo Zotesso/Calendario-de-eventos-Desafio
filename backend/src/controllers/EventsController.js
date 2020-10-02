@@ -1,5 +1,6 @@
 const knex = require("../database/connection");
 const authenticateToken = require("../utils/authenticateToken");
+const verifyIfEventExists = require("../utils/verifyIfEventExists");
 
 module.exports = {
     async index(request, response, next){
@@ -47,16 +48,21 @@ module.exports = {
         const eventData = request.body;
         try{
             if(authenticateToken(request.headers['authorization'])){
-                const id = await knex('events').insert({
-                    title: eventData.title,
-                    description: eventData.description,
-                    visibility: eventData.visibility,
-                    eventStartTime: eventData.eventStartTime,
-                    eventEndTime: eventData.eventEndTime,
-                    user_id: eventData.userId
-                });
-
-                return response.sendStatus(200);
+                const eventExist = await verifyIfEventExists(eventData.title, eventData.userId);
+                if(eventExist){
+                    return response.json({message: 'Evento já existente, edite-o diretamente'});    
+                }else{
+                    await knex('events').insert({
+                        title: eventData.title,
+                        description: eventData.description,
+                        visibility: eventData.visibility,
+                        eventStartTime: eventData.eventStartTime,
+                        eventEndTime: eventData.eventEndTime,
+                        user_id: eventData.userId
+                    });
+    
+                    return response.json({message: 'Evento cadastrado com sucesso!'});    
+                }
             }else{
                 return response.sendStatus(401);
             }

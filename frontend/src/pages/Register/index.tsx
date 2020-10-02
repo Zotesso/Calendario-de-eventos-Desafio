@@ -7,6 +7,7 @@ import './styles.css';
 import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import Footer from '../../components/footer';
 
 interface IFormRegister {
     name: string;
@@ -77,6 +78,9 @@ const Register = () => {
             </Button>
         </Form>
     </main>
+        <footer>
+          <Footer />
+        </footer>
     </>
     );
 }

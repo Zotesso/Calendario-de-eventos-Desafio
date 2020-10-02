@@ -11,6 +11,11 @@
     margin-left: 5px;
 }
 
+.btn{
+    background-color:#D10057;
+    color: #FFF;
+ }
+ 
 span{
     font-size: 1.6rem;
 }

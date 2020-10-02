@@ -7,6 +7,7 @@ import Header from '../../components/header';
 import './styles.css';
 import { useForm } from 'react-hook-form';
 import api from '../../services/api';
+import Footer from '../../components/footer';
 
 interface IFormLogin {
     username: string;
@@ -65,6 +66,9 @@ const Login = () => {
             </Button>
         </Form>
     </main>
+        <footer>
+          <Footer />
+        </footer>
     </>
     );
 }

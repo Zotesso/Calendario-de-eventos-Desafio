@@ -15,7 +15,7 @@ const Header = () => {
     }
 
     return(
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+        <Navbar collapseOnSelect expand="lg" >
         <Navbar.Brand>Agenda Eventos</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" ></Navbar.Toggle>
      
@@ -33,26 +33,26 @@ const Header = () => {
             </Nav.Item>   
         </Nav>
           <Link to="/new" className="link">
-                <FiPlusCircle size={22} color="#333"/>
+                <FiPlusCircle size={22} color="#FFF"/>
                  Adicionar Evento
             </Link>
             {localStorage.getItem("userId") === null &&
             <section className="login-section">
             <Link to="/login" className="link">
-                <FiLogIn size={22} color="#333"/>
-                <FiUser size={22} color="#333"/>
+                <FiLogIn size={22} color="#FFF"/>
+                <FiUser size={22} color="#FFF"/>
                  Entrar
             </Link>
             <Link to="/register" className="link">
-                <FiUserPlus size={22} color="#333"/>
+                <FiUserPlus size={22} color="#FFF"/>
                   Registrar
             </Link>
             </section>
             }
             {localStorage.getItem("userId") !== null &&
                 <button onClick={handleLogout} type="button" className="link">
-                    <FiLogOut size={22} color="#333"/>
-                    <FiUser size={22} color="#333"/>
+                    <FiLogOut size={22} color="#FFF"/>
+                    <FiUser size={22} color="#FFF"/>
                      Sair
                 </button>
             }

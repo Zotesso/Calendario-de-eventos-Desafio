@@ -4,6 +4,7 @@ import Header from '../../components/header';
 import EventController from '../../components/eventController';
 
 import './styles.css';
+import Footer from '../../components/footer';
 
 const NewEvent = () => { 
     return (
@@ -13,13 +14,16 @@ const NewEvent = () => {
         </header>
         <main>
             <EventController 
-            title='Olá' 
-            description='teste' 
+            title='' 
+            description='' 
             eventStartTime={new Date()} 
             eventEndTime={new Date()}
             visibility='private' 
             />
         </main>
+        <footer>
+          <Footer />
+        </footer>
     </>
     );
 }

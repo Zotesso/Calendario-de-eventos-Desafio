@@ -5,6 +5,7 @@ import EventController from '../../components/eventController';
 
 import {RouteComponentProps}  from 'react-router-dom';
 import './styles.css';
+import Footer from '../../components/footer';
 
 const EditEvent = (props: RouteComponentProps) => { 
     const state = props.location.state;
@@ -26,6 +27,9 @@ const EditEvent = (props: RouteComponentProps) => {
             />
         }
         </main>
+        <footer>
+          <Footer />
+        </footer>
     </>
     );
 }

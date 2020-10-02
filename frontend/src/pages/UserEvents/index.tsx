@@ -14,6 +14,7 @@ import api from '../../services/api';
 import './styles.css';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import Footer from '../../components/footer';
 
 interface Event {
     id: number;
@@ -62,7 +63,7 @@ const UserEvents = () => {
         <>
         <header>
         <Header />
-        <p className="session-title">Seus eventos</p>
+        <p className="session-title">Meus eventos</p>
         {!userId && 
         <p className="session-warning">Faça login para ter acesso aos seus eventos!</p>
         }
@@ -82,12 +83,12 @@ const UserEvents = () => {
                                 eventStartTime: new Date(personalEvent.eventStartTime),
                                 eventEndTime: new Date(personalEvent.eventEndTime),
                             }
-                            }} >
-                            <FiEdit title="Editar Evento" size={20} color="333" />
+                            }}  className="edit-button">
+                            <FiEdit title="Editar Evento" size={20} color="FFF" />
                         </Link>
                         <button title="Deletar evento"
                         onClick={() => handleDeleteIncident(personalEvent.id)} type="button">
-                                <FiTrash2 size={20} color="333" />
+                                <FiTrash2 size={20} color="FFF" />
                             </button>
                     </Card.Header> 
                     <Card.Body>
@@ -106,6 +107,9 @@ const UserEvents = () => {
             ))}
         </Row>
         </main>
+        <footer>
+          <Footer />
+        </footer>
     </>
     );
 }

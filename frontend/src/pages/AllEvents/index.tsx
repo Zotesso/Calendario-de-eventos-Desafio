@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Header from '../../components/header';
+import Footer from '../../components/footer';
+
 import api from '../../services/api';
 
 import moment from 'moment';
@@ -75,6 +77,9 @@ const AllEvents = () => {
                 ))}
             </Row>
         </main>
+        <footer>
+          <Footer />
+        </footer>
     </>
     );
 }
